@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>London Trip 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & TOKENS ─────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+:root {
+  --white:    #FFFFFF;
+  --cream:    #FAFAF7;
+  --sand:     #F5F0E8;
+  --ink:      #1A1A1A;
+  --ink2:     #444;
+  --muted:    #6F6F6F;
+  --divider:  #E8E4DC;
+  --gold:     #B8943A;
+  --gold-lt:  #D4AF5A;
+  --gold-bg:  #FDF8EC;
+  --sf-h:     #1F2A44;
+  --sf-lt:    #ECEFF6;
+  --napa-h:   #8E2236;
+  --napa-lt:  #F9ECEE;
+  --pdx-h:    #2E5B45;
+  --pdx-lt:   #EAF3EE;
+  --ok:       #1A5C35;
+  --warn:     #8A5A00;
+  --r:        14px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ─── PAGE SWITCHER ──────────────────────────── */
+.pg {
+  display: none !important;
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
+}
+.pg.on {
+  display: block !important;
+  visibility: visible;
+  position: relative;
+  pointer-events: auto;
+}
+
+/* ─── COVER ──────────────────────────────────── */
+#p0 { background: var(--white); min-height: 100vh; }
+#p0-inner { display: flex; flex-direction: column; }
+
+.cv-top {
+  background: var(--sf-h);
+  padding: 52px 24px 70px;
+  text-align: center;
+  position: relative;
+}
+
+/* wave bottom */
+.cv-top::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 36px;
+  background: var(--white);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.cv-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 10px;
+}
+
+.cv-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 9vw, 72px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.0;
+  margin-bottom: 6px;
+}
+
+.cv-sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(18px, 4vw, 26px);
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 22px;
+}
+
+.cv-pill {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 5px 18px;
+  border-radius: 20px;
+}
+
+/* photo triptych */
+.cv-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 28px 18px 0;
+}
+
+.cv-card {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+  transition: transform .2s;
+}
+.cv-card:hover, .cv-card:active { transform: translateY(-3px); }
+
+.cv-card-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* fallback gradient shown when photo missing */
+}
+
+.cv-card-photo.sf-grad   { background: linear-gradient(160deg,#3B6FA0,#1B3D6F); }
+.cv-card-photo.napa-grad { background: linear-gradient(160deg,#A05060,#6B2030); }
+.cv-card-photo.pdx-grad  { background: linear-gradient(160deg,#2A7050,#1A4D32); }
+
+.cv-card-ov {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
+}
+
+.cv-card-lbl {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 14px 12px 12px;
+  text-align: center;
+}
+
+.cv-city {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #fff;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.cv-dates {
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+
+/* travelers */
+.cv-travelers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 20px 18px 6px;
+}
+
+.cv-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink2);
+  background: var(--gold-bg);
+  border: 1px solid rgba(184,148,58,.25);
+  padding: 5px 16px;
+  border-radius: 30px;
+}
+
+.cv-amp { color: var(--muted); font-size: 14px; }
+
+.cv-cta {
+  padding: 16px 18px 40px;
+  text-align: center;
+}
+
+.cv-btn {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(184,148,58,.4);
+  transition: all .2s;
+}
+.cv-btn:hover { background: #A07A28; transform: translateY(-1px); }
+
+/* ─── DAY PAGE SHELL ─────────────────────────── */
+.day-page { background: var(--cream); min-height: 100vh; }
+
+/* HERO PHOTO */
+.d-hero {
+  width: 100%;
+  height: clamp(200px, 48vw, 340px);
+  position: relative;
+  overflow: hidden;
+}
+
+/*
+  ════════════════════════════════════════════
+  TO ADD REAL PHOTOS:
+  Replace the gradient background on each
+  .d-hero with an <img> tag like:
+  <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;">
+  ════════════════════════════════════════════
+*/
+
+.d-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-sf   { background: linear-gradient(145deg,#5B8EC0 0%,#2A5A90 40%,#1B3D6F 100%); }
+.hero-alcatraz { background: linear-gradient(145deg,#7AAAC8 0%,#4A82A8 40%,#1B4A6A 100%); }
+.hero-drive { background: linear-gradient(145deg,#6090B0 0%,#3A6888 40%,#1E4A68 100%); }
+.hero-napa  { background: linear-gradient(145deg,#C09070 0%,#906040 45%,#6B3820 100%); }
+.hero-fly   { background: linear-gradient(145deg,#8AAAC8 0%,#5A80A8 45%,#2A4870 100%); }
+.hero-pdx   { background: linear-gradient(145deg,#60A878 0%,#306850 45%,#1A4030 100%); }
+.hero-bkg   { background: linear-gradient(145deg,#4A6080 0%,#2A4060 100%); }
+
+.d-hero-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+.badge-sf   { background: rgba(27,61,111,.75); }
+.badge-napa { background: rgba(107,32,48,.75); }
+.badge-pdx  { background: rgba(26,77,50,.75); }
+.badge-tr   { background: rgba(40,40,40,.65); }
+
+/* optional photo credit overlay */
+.hero-inner {
+  position: absolute; inset: 0;
+  display: flex; align-items: flex-end;
+  background: linear-gradient(to top, rgba(0,0,0,.18) 0%, transparent 60%);
+}
+
+/* STICKY NAV */
+.d-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--divider);
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+
+.nav-home {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: var(--gold);
+  background: none; border: none; cursor: pointer;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.nav-dots {
+  flex: 1;
+  display: flex; gap: 5px;
+  justify-content: center; flex-wrap: wrap;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--divider);
+  border: none; padding: 0; cursor: pointer;
+  transition: all .2s;
+}
+.dot.on { background: var(--gold); transform: scale(1.35); }
+
+.nav-arr {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--divider);
+  background: var(--white);
+  cursor: pointer; font-size: 14px;
+  color: var(--ink2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.nav-arr:hover { border-color: var(--gold); color: var(--gold); }
+.nav-arr:disabled { opacity: .25; cursor: default; }
+
+/* DAY HEADER */
+.d-hdr {
+  background: var(--white);
+  margin: 16px 14px 0;
+  border-radius: var(--r);
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+.d-hdr-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 17px;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.d-hdr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 5vw, 26px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.d-hdr-date {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* CONTENT */
+.d-body {
+  padding: 14px 14px 110px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* section label */
+.sec-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 22px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--divider);
+}
+
+/* ─── FLIGHT BOX ─────────────────────────────── */
+.fbox {
+  background: #162D50;
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.fbox-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  margin-bottom: 10px;
+}
+
+.frow {
+  display: flex; gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.frow:first-of-type { border-top: none; }
+
+.fperson {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255,255,255,.55);
+  min-width: 68px;
+  padding-top: 1px;
+  flex-shrink: 0;
+}
+
+.finfo { flex: 1; }
+
+.fnum {
+  font-size: 10px;
+  color: rgba(255,255,255,.32);
+  letter-spacing: .06em;
+  margin-bottom: 2px;
+}
+
+.ftimes {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .01em;
+}
+
+.farr { color: var(--gold-lt); margin: 0 4px; }
+
+.froute { font-size: 12px; color: rgba(255,255,255,.38); margin-top: 2px; }
+.fconf  { font-size: 10px; color: var(--gold-lt); margin-top: 2px; letter-spacing: .04em; }
+
+/* ─── RACHEL BOX ─────────────────────────────── */
+.rbox {
+  background: var(--gold-bg);
+  border: 1px solid rgba(184,148,58,.28);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.rbox-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+
+.rbox-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px; color: var(--ink2);
+  margin-bottom: 12px; line-height: 1.45;
+}
+
+.ropt {
+  font-size: 14px; color: var(--ink2);
+  padding: 9px 0;
+  border-top: 1px solid rgba(184,148,58,.2);
+  line-height: 1.55;
+}
+.ropt:first-of-type { border-top: none; }
+.ropt strong { color: var(--ink); }
+
+/* ─── TIMELINE ───────────────────────────────── */
+.tl-item {
+  display: flex; gap: 12px;
+  margin-bottom: 6px;
+}
+
+.tl-l {
+  display: flex; flex-direction: column;
+  align-items: center;
+  width: 52px; flex-shrink: 0;
+}
+
+.tl-time {
+  font-size: 11px; font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.3;
+  white-space: nowrap;
+  padding-top: 3px;
+}
+
+.tl-line {
+  width: 1px; flex: 1;
+  min-height: 20px;
+  background: var(--divider);
+  margin-top: 6px;
+}
+
+.tl-r {
+  flex: 1;
+  background: var(--white);
+  border: 1px solid var(--divider);
+  border-radius: var(--r);
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.04);
+}
+
+.tl-r.booked { border-left: 3px solid var(--ok); }
+.tl-r.warn   { border-left: 3px solid var(--warn); }
+.tl-r.opt    { background: var(--cream); box-shadow: none; }
+
+.pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 5px; }
+
+.pill {
+  display: inline-flex; align-items: center;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 20px;
+}
+.pill-ok   { background: rgba(26,92,53,.1);  color: var(--ok); }
+.pill-warn { background: rgba(138,90,0,.1); color: var(--warn); }
+
+.tl-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--ink); margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+.tl-desc {
+  font-size: 13px; color: var(--ink2);
+  line-height: 1.6;
+}
+
+.tl-conf {
+  font-size: 11px; color: var(--muted);
+  font-style: italic; margin-top: 5px;
+}
+
+/* PULL QUOTE */
+.pq {
+  border-left: 3px solid var(--sf-h);
+  background: var(--sf-lt);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px; margin: 8px 0;
+}
+.pq.napa { border-left-color: var(--napa-h); background: var(--napa-lt); }
+
+.pq-txt {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--ink2); line-height: 1.6;
+}
+.pq-attr {
+  font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 4px;
+}
+
+/* DINNER OPTIONS */
+.dinner { margin-top: 8px; }
+
+.dgrp-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); margin: 12px 0 6px;
+}
+
+.dopt {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: 13px; color: var(--ink2);
+  line-height: 1.5;
+}
+.dopt:last-child { border-bottom: none; }
+.dopt strong { color: var(--ink); font-size: 14px; display: block; margin-bottom: 1px; }
+
+/* WINERY CARD */
+.wcard {
+  background: var(--sand);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 12px 14px; margin-top: 8px;
+}
+
+.wcard-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700; color: var(--ink);
+}
+
+.wcard-tag { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 6px; }
+
+.wcard-desc { font-size: 13px; color: var(--ink2); line-height: 1.55; }
+
+.wcard-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--divider);
+}
+.wm-item { font-size: 12px; color: var(--muted); }
+.wm-item strong {
+  display: block; font-size: 9px;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 1px;
+}
+
+/* FIXED FOOTER NAV */
+.foot {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--divider);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0,0,0,.06);
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+}
+
+.foot-btn {
+  background: none;
+  border: 1.5px solid var(--divider);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all .2s;
+}
+.foot-btn:hover { border-color: var(--gold); color: var(--gold); }
+.foot-btn:disabled { opacity: .25; cursor: default; }
+
+.foot-mid { text-align: center; }
+.foot-lbl { font-family: 'Dancing Script', cursive; font-size: 18px; color: var(--gold); line-height: 1.1; }
+.foot-sub { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* ─── BOOKINGS PAGE ───────────────────────────── */
+.bk-hero {
+  background: #162D50;
+  padding: 30px 20px 26px;
+  text-align: center;
+}
+.bk-h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.bk-sub { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.38); }
+
+.bk-body { max-width: 680px; margin: 0 auto; padding: 16px 14px 110px; }
+
+.bk-grp { font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); margin: 20px 0 10px; }
+
+.bk-item {
+  background: var(--white);
+  border: 1px solid var(--divider);
+  border-radius: var(--r);
+  padding: 13px 15px;
+  margin-bottom: 8px;
+  display: flex; gap: 11px; align-items: flex-start;
+}
+
+.bk-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0; margin-top: 1px;
+}
+.bk-icon.ok   { background: rgba(26,92,53,.1); color: var(--ok); }
+.bk-icon.todo { background: rgba(138,90,0,.1); color: var(--warn); }
+
+.bk-name { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 3px; }
+.bk-det  { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.bk-act  { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--warn); margin-top: 3px; }
+.booking-conf { display: block; margin-top: 6px; font-size: 11px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 6px 10px; font-family: monospace; color: var(--gold-lt); cursor: pointer; width: 100%; text-align: left; }
+
+/* ─── PORTLAND COMING SOON ───────────────────── */
+.pdx-soon { text-align: center; padding: 28px 16px; }
+.pdx-icon { font-size: 50px; margin-bottom: 12px; }
+.pdx-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--ink2); margin-bottom: 6px; }
+.pdx-desc { font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 300px; margin: 0 auto 22px; }
+
+.mustdo {
+  background: var(--white);
+  border: 1px solid var(--divider);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.mi {
+  display: flex; gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: 14px; color: var(--ink2); line-height: 1.4;
+}
+.mi:last-child { border-bottom: none; }
+.mi strong { color: var(--ink); }
+
+
+/* ─── LONDON OVERRIDES ───────────────────────── */
+body { background: var(--cream); color: var(--ink); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--white); }
+
+.d-hero { height: clamp(120px, 28vw, 180px); }
+.hero-city    { background: linear-gradient(145deg,#4A5A80 0%,#2B3A60 45%,#1F2A44 100%); }
+.hero-country { background: linear-gradient(145deg,#6FA284 0%,#3E7058 45%,#2E5B45 100%); }
+.hero-family  { background: linear-gradient(145deg,#B5566A 0%,#A03A50 45%,#8E2236 100%); }
+.hero-port    { background: linear-gradient(145deg,#3F86A8 0%,#2A6788 45%,#1D4E6B 100%); }
+.hero-wine    { background: linear-gradient(145deg,#8A5A7A 0%,#6E3E60 45%,#5A2D4A 100%); }
+.hero-harry   { background: linear-gradient(145deg,#6A5A9A 0%,#4F4180 45%,#3B2F5E 100%); }
+.hero-plan    { background: linear-gradient(145deg,#4A6080 0%,#2A4060 100%); }
+.badge-city    { background: rgba(31,42,68,.75); }
+.badge-country { background: rgba(46,91,69,.75); }
+.badge-family  { background: rgba(142,34,54,.75); }
+.badge-port    { background: rgba(29,78,107,.75); }
+.badge-wine    { background: rgba(90,45,74,.75); }
+.badge-harry   { background: rgba(59,47,94,.75); }
+.d-hero-date {
+  position: absolute; left: 18px; bottom: 12px;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: clamp(30px, 8vw, 48px); line-height: 1;
+  color: rgba(255,255,255,.92);
+}
+
+/* gutters: at least 16px, clear of side system bars */
+.d-nav { top: env(safe-area-inset-top, 0px); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.d-hdr { margin: 16px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+.d-body, .bk-body { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.foot { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.cv-photos, .cv-travelers, .cv-cta, .cv-list { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.cv-top { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+
+.tl-r, .tl-desc, .rbox-title, .wcard-desc { min-width: 0; overflow-wrap: anywhere; }
+.d-body > *, .bk-body > * { max-width: 100%; }
+
+.cv-card .cv-grad { position: absolute; inset: 0; }
+.cv-grad.g-family  { background: linear-gradient(160deg,#B5566A,#8E2236); }
+.cv-grad.g-country { background: linear-gradient(160deg,#4F8668,#2E5B45); }
+.cv-grad.g-plan    { background: linear-gradient(160deg,#4F6A92,#1F2A44); }
+.cv-note { text-align: center; font-size: 13px; color: var(--muted); padding: 2px 18px 0; }
+
+.cv-list { max-width: 680px; margin: 0 auto; padding-bottom: 110px; }
+.cv-list-title { font-size: 10px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); margin: 8px 0 10px; text-align: center; }
+button.mi { background: none; border: none; border-bottom: 1px solid var(--divider); width: 100%; text-align: left; font: inherit; color: var(--ink2); cursor: pointer; align-items: baseline; }
+button.mi:last-child { border-bottom: none; }
+button.mi:hover strong, button.mi:focus-visible strong { color: var(--gold); }
+button.mi .md { min-width: 74px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); flex-shrink: 0; }
+.mustdo { padding: 6px 18px; }
+a.ext { color: var(--sf-h); }
+.later .mi { display: block; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+</style>
+</head>
+<body>
+
+<div class="pg on" id="p0">
+  <div id="p0-inner" style="background:#fff; min-height:100vh; flex-direction:column;">
+    <div class="cv-top">
+      <div class="cv-script">Ten days &middot; May 2027</div>
+      <h1 class="cv-h1">London</h1>
+      <div class="cv-sub">&amp; the English countryside</div>
+      <div class="cv-pill">May 5 &ndash; 14, 2027</div>
+    </div>
+    <div class="cv-photos">
+      <div class="cv-card" onclick="go(3)" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go(3)">
+        <div class="cv-grad g-family"></div><div class="cv-card-ov"></div>
+        <div class="cv-card-lbl"><span class="cv-city">Family days</span><span class="cv-dates">May 7&ndash;9</span></div>
+      </div>
+      <div class="cv-card" onclick="go(2)" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go(2)">
+        <div class="cv-grad g-country"></div><div class="cv-card-ov"></div>
+        <div class="cv-card-lbl"><span class="cv-city">Countryside</span><span class="cv-dates">May 6, 10, 11</span></div>
+      </div>
+      <div class="cv-card" onclick="go(11)" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go(11)">
+        <div class="cv-grad g-plan"></div><div class="cv-card-ov"></div>
+        <div class="cv-card-lbl"><span class="cv-city">Plan</span><span class="cv-dates">Bookings</span></div>
+      </div>
+    </div>
+    <div class="cv-travelers">
+      <div class="cv-name">Cris</div><div class="cv-amp">&amp;</div><div class="cv-name">Caroline</div>
+    </div>
+    <div class="cv-note">With Rachel &amp; AJ, May 7&ndash;9</div>
+    <div class="cv-cta"><button class="cv-btn" onclick="go(1)">Start with Day 1 &rarr;</button></div>
+    <div class="cv-list">
+      <div class="cv-list-title">The ten days</div>
+      <div class="mustdo"><button class="mi" onclick="go(1)"><span class="md">May 5</span><strong>Arrive + Richmond</strong></button><button class="mi" onclick="go(2)"><span class="md">May 6</span><strong>Cotswolds</strong></button><button class="mi" onclick="go(3)"><span class="md">May 7</span><strong>Rachel &amp; AJ land</strong></button><button class="mi" onclick="go(4)"><span class="md">May 8</span><strong>Tower, bridges, market, Beer Mile</strong></button><button class="mi" onclick="go(5)"><span class="md">May 9</span><strong>Breakfast, then Southampton</strong></button><button class="mi" onclick="go(6)"><span class="md">May 10</span><strong>Winery day</strong></button><button class="mi" onclick="go(7)"><span class="md">May 11</span><strong>Stonehenge + Bath</strong></button><button class="mi" onclick="go(8)"><span class="md">May 12</span><strong>Harry Potter Studio Tour</strong></button><button class="mi" onclick="go(9)"><span class="md">May 13</span><strong>Abbey Road, Peloton, free time</strong></button><button class="mi" onclick="go(10)"><span class="md">May 14</span><strong>Fly home</strong></button></div>
+    </div>
+  </div>
+</div>
+
+<div class="pg" id="p1">
+  <div class="day-page">
+    <div class="d-hero hero-city">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-city">London</div>
+      <div class="d-hero-date">May 5</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots1"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(0)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(2)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day one</div>
+      <h2 class="d-hdr-title">Arrive + Richmond</h2>
+      <div class="d-hdr-date">Wednesday, May 5, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Red-eye arrival</div><div class="rbox-title" style="margin-bottom:0">You land early and rooms usually open around 2&ndash;3pm. Bags go to the hotel and the day starts in Richmond. Daylight and walking beat a dark room for jet lag.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Early AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Land + Hotel Drop</div><div class="tl-desc">Heathrow to the hotel. Hotels hold bags even when the room isn&rsquo;t ready.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Richmond: Ted Lasso Spots</div><div class="tl-desc">Richmond is about 30 minutes from central London. Paved Court is Ted&rsquo;s street. The Prince&rsquo;s Head, a Fuller&rsquo;s pub at 28 The Green, plays the Crown &amp; Anchor and keeps Ted Lasso memorabilia on the walls. Richmond Green is the backdrop for a lot of the show.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Lunch</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Riverside Lunch</div><div class="tl-desc">Richmond Riverside, then a walk along the Thames.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r opt"><div class="tl-title">Kew Gardens or Richmond Theatre</div><div class="tl-desc">Kew Gardens is next door if you want more green space. Richmond Theatre dates from 1899 and is worth a look from the outside.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Early Dinner, Early Night</div><div class="tl-desc">Stay up until it&rsquo;s dark, then sleep.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(0)">&larr; Cover</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 1</div><div class="foot-sub">Richmond</div></div>
+    <button class="foot-btn" onclick="go(2)">Day 2 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p2">
+  <div class="day-page">
+    <div class="d-hero hero-country">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-country">Countryside</div>
+      <div class="d-hero-date">May 6</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots2"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(1)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(3)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day two</div>
+      <h2 class="d-hdr-title">Cotswolds</h2>
+      <div class="d-hdr-date">Thursday, May 6, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Getting there</div><div class="rbox-title" style="margin-bottom:0">About two hours each way. After a red-eye, a chauffeured minibus beats driving on the left. A rental car gives you more freedom. Pick one before you go.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Leave London</div><div class="tl-desc">Cotswolds minibuses leave from London Euston. A rental car works too.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Bibury</div><div class="tl-desc">Often called one of the most beautiful villages in England. Stone cottages, a river, and not much else, which is the point.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Lunch</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Countryside Pub</div><div class="tl-desc">Pick a pub in whichever village you like most. Skip anything with a coach park.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Bourton-on-the-Water</div><div class="tl-desc">The &ldquo;Venice of the Cotswolds&rdquo;: low stone bridges over a shallow river, small shops, riverside walks.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">If time allows</div><div class="tl-line"></div></div><div class="tl-r opt"><div class="tl-title">Castle Combe</div><div class="tl-desc">Thatched-roof village farther south, about 30 minutes from Bath. Only if the day is running well.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Back to London</div><div class="tl-desc">About two hours. Easy dinner near the hotel.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(1)">&larr; Day 1</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 2</div><div class="foot-sub">Cotswolds</div></div>
+    <button class="foot-btn" onclick="go(3)">Day 3 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p3">
+  <div class="day-page">
+    <div class="d-hero hero-family">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-family">With Rachel &amp; AJ</div>
+      <div class="d-hero-date">May 7</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots3"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(2)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(4)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day three</div>
+      <h2 class="d-hdr-title">Rachel &amp; AJ Land</h2>
+      <div class="d-hdr-date">Friday, May 7, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Rachel &amp; AJ arrive</div><div class="rbox-title" style="margin-bottom:0">They land around noon, so the day splits. The morning is just the two of you. The afternoon is the first family stretch.</div></div><div class="sec-lbl">Morning &middot; Cris &amp; Caroline</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">St James&rsquo;s Park to Buckingham Palace</div><div class="tl-desc">Walk the park to the palace. Buckingham Palace is the royal residence you wanted to see.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">11am</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Check schedule</span></div><div class="tl-title">Changing of the Guard</div><div class="tl-desc">At Buckingham Palace. It doesn&rsquo;t run every day, so check the schedule a few weeks out. If it isn&rsquo;t on, the park walk is still a good morning.</div></div></div><div class="sec-lbl">Afternoon &middot; With Rachel &amp; AJ</div><div class="tl-item"><div class="tl-l"><div class="tl-time">~2pm</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Meet Up</div><div class="tl-desc">Rachel &amp; AJ drop their bags and meet you. Keep the first hour loose.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Westminster + Big Ben</div><div class="tl-desc">Parliament and Big Ben, best seen from Westminster Bridge. Skip going inside. Tours book far ahead and eat a lot of time.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Golden hour</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Thames Walk</div><div class="tl-desc">The South Bank, with the river and Parliament across the water. Daylight lasts past 8pm in early May.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Easy Group Dinner</div><div class="tl-desc">Nothing ambitious. Everyone is jet-lagged.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(2)">&larr; Day 2</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 3</div><div class="foot-sub">Family arrives</div></div>
+    <button class="foot-btn" onclick="go(4)">Day 4 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p4">
+  <div class="day-page">
+    <div class="d-hero hero-family">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-family">With Rachel &amp; AJ</div>
+      <div class="d-hero-date">May 8</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots4"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(3)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(5)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day four</div>
+      <h2 class="d-hdr-title">Tower, Bridges, Market, Beer Mile</h2>
+      <div class="d-hdr-date">Saturday, May 8, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Big river day</div><div class="rbox-title" style="margin-bottom:0">Everything lines up along the Thames, so the walking stays simple. Saturday is also when most Beer Mile taprooms are open in the daytime.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Tower of London</div><div class="tl-desc">The classic London history stop.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Tower Bridge + London Bridge</div><div class="tl-desc">Cross Tower Bridge, then follow the South Bank to London Bridge.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Lunch</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Borough Market</div><div class="tl-desc">Food stalls and a wander. Busy on a Saturday, so go before the noon rush if you can.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Bermondsey Beer Mile</div><div class="tl-desc">A walkable strip of craft brewery taprooms south of Tower Bridge, and a real local weekend habit. Maltby Street Market (Saturdays and Sundays) is nearby for snacks.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r opt"><div class="tl-title">West End Show or Comedy Club</div><div class="tl-desc">Optional. It&rsquo;s a long day on day two of jet lag. Soho Theatre and The Comedy Store are the comedy options.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(3)">&larr; Day 3</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 4</div><div class="foot-sub">Family day</div></div>
+    <button class="foot-btn" onclick="go(5)">Day 5 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p5">
+  <div class="day-page">
+    <div class="d-hero hero-port">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-port">Southampton</div>
+      <div class="d-hero-date">May 9</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots5"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(4)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(6)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day five</div>
+      <h2 class="d-hdr-title">Breakfast, Then Southampton</h2>
+      <div class="d-hdr-date">Sunday, May 9, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Cruise day</div><div class="rbox-title" style="margin-bottom:0">Rachel &amp; AJ sail from Southampton this afternoon. Breakfast together first, then they head to the port.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Breakfast Together</div><div class="tl-desc">Somewhere simple near the hotel.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late AM</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Confirm</span></div><div class="tl-title">To Southampton</div><div class="tl-desc">Train from London Waterloo to Southampton Central, roughly 1.25&ndash;1.5 hours, then a short taxi to the terminal. Confirm the terminal and check-in window with the cruise line.</div><div class="tl-conf">Open question: do you two go along to the port or say goodbye in London?</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Sail Away</div><div class="tl-desc">Rachel &amp; AJ board.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r opt"><div class="tl-title">Sunday Roast</div><div class="tl-desc">A roast dinner at a neighborhood pub is a Sunday tradition in London and a good use of a free evening.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(4)">&larr; Day 4</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 5</div><div class="foot-sub">Cruise day</div></div>
+    <button class="foot-btn" onclick="go(6)">Day 6 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p6">
+  <div class="day-page">
+    <div class="d-hero hero-wine">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-wine">Wine</div>
+      <div class="d-hero-date">May 10</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots6"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(5)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(7)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day six</div>
+      <h2 class="d-hdr-title">Winery Day</h2>
+      <div class="d-hdr-date">Monday, May 10, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Pick one</div><div class="rbox-title" style="margin-bottom:0">One winery, reached by train plus a short taxi. No car needed. Tours need booking, so choose first.</div></div><div class="sec-lbl">The Three Options</div><div class="wcard"><div class="wcard-name">Denbies</div><div class="wcard-tag">Surrey &middot; Closest</div><div class="wcard-desc">One of the largest vineyards in England, 265 acres under the North Downs near Box Hill. Ride the estate&rsquo;s little vineyard train for the outdoor tour, and eat at the restaurant overlooking the vines.</div><div class="wcard-meta"><div class="wm-item"><strong>Getting there</strong>Waterloo &rarr; Dorking</div><div class="wm-item"><strong>Best for</strong>Easy logistics</div></div></div><div class="wcard"><div class="wcard-name">Gusbourne</div><div class="wcard-tag">Kent &middot; Best reputation</div><div class="wcard-desc">Often named among the best English sparkling producers. Walk the vineyard slopes, then taste.</div><div class="wcard-meta"><div class="wm-item"><strong>Getting there</strong>St Pancras &rarr; Ashford, 40 min, then a 20 min taxi</div><div class="wm-item"><strong>Best for</strong>Top-tier fizz</div></div></div><div class="wcard"><div class="wcard-name">Nyetimber</div><div class="wcard-tag">West Sussex &middot; Prettiest setting</div><div class="wcard-desc">South Downs views on a medieval estate, with tastings in an old barn. It won world&rsquo;s best sparkling wine at the 1998 International Wine and Spirits Competition and pours at the Savoy, Ascot and Wimbledon.</div><div class="wcard-meta"><div class="wm-item"><strong>Getting there</strong>Victoria &rarr; Pulborough, about 80 min, then a short taxi</div><div class="wm-item"><strong>Note</strong>Tours run on select dates</div></div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Pick one</span></div><div class="tl-title">Train Out</div><div class="tl-desc">Leave London mid-morning for the winery you pick.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Midday</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Tour + Tasting</div><div class="tl-desc">Book the tour once you choose. English wine is mostly sparkling, grown on the same chalk soil as Champagne.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Countryside Lunch</div><div class="tl-desc">Eat on the way back, or at the estate if it has a restaurant.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Back in London</div><div class="tl-desc">Easy night.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(5)">&larr; Day 5</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 6</div><div class="foot-sub">Winery</div></div>
+    <button class="foot-btn" onclick="go(7)">Day 7 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p7">
+  <div class="day-page">
+    <div class="d-hero hero-country">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-country">Countryside</div>
+      <div class="d-hero-date">May 11</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots7"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(6)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(8)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day seven</div>
+      <h2 class="d-hdr-title">Stonehenge + Bath</h2>
+      <div class="d-hdr-date">Tuesday, May 11, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Long day, worth it</div><div class="rbox-title" style="margin-bottom:0">Stonehenge first, Bath for the afternoon. About 11&ndash;12 hours door to door, so wear comfortable shoes and keep dinner easy. A rental car or a driver makes this one work.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Early</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Book timed ticket</span></div><div class="tl-title">Stonehenge</div><div class="tl-desc">About 1.5 hours from London. Entry is timed. Book online the night before or that morning (up to three hours ahead), which is cheaper than the gate. A shuttle runs to the stones, or take the half-hour walk across the meadow. Plan 1&ndash;2 hours.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Drive to Bath</div><div class="tl-desc">About an hour from Stonehenge.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Lunch</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Lunch in Bath</div><div class="tl-desc">Sit down somewhere in the center.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Roman Baths</div><div class="tl-desc">A bathing complex about 2,000 years old that you walk through.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Late afternoon</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Georgian Bath</div><div class="tl-desc">The Royal Crescent and Pulteney Bridge, then a pub stop before the drive back.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Back to London</div><div class="tl-desc">About 1.5&ndash;2 hours.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(6)">&larr; Day 6</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 7</div><div class="foot-sub">Stonehenge + Bath</div></div>
+    <button class="foot-btn" onclick="go(8)">Day 8 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p8">
+  <div class="day-page">
+    <div class="d-hero hero-harry">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-harry">Harry Potter</div>
+      <div class="d-hero-date">May 12</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots8"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(7)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(9)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day eight</div>
+      <h2 class="d-hdr-title">Harry Potter Studio Tour</h2>
+      <div class="d-hdr-date">Wednesday, May 12, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Full day</div><div class="rbox-title" style="margin-bottom:0">The Warner Bros. Studio Tour is in Leavesden, outside the city. Count on the whole day.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Book ahead</span></div><div class="tl-title">Train to Watford Junction</div><div class="tl-desc">From London Euston, then the shuttle bus to the studio. Book your entry ahead once the dates are firm.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Midday</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">The Studio Tour</div><div class="tl-desc">The actual sets and props from the films, including the Great Hall and Diagon Alley. Plan on 3&ndash;3.5 hours inside.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Back to London</div><div class="tl-desc">Easy dinner near the hotel.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(7)">&larr; Day 7</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 8</div><div class="foot-sub">Leavesden</div></div>
+    <button class="foot-btn" onclick="go(9)">Day 9 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p9">
+  <div class="day-page">
+    <div class="d-hero hero-city">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-city">London</div>
+      <div class="d-hero-date">May 13</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots9"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(8)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(10)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day nine</div>
+      <h2 class="d-hdr-title">Abbey Road, Peloton, Free Time</h2>
+      <div class="d-hdr-date">Thursday, May 13, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Early AM</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Abbey Road Crossing</div><div class="tl-desc">The Beatles album-cover zebra crossing outside Abbey Road Studios in St John&rsquo;s Wood. Free, and a 5-minute walk from St John&rsquo;s Wood tube (Jubilee line). Go early to beat the crowd. It takes 20&ndash;30 minutes.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r warn"><div class="pills"><span class="pill pill-warn">Check schedule</span></div><div class="tl-title">Peloton Studios London</div><div class="tl-desc">Check Peloton&rsquo;s visiting-instructor schedule 4&ndash;6 weeks before the trip to see whether Cody Rigsby is teaching in London. If he isn&rsquo;t, book any studio class.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Afternoon</div><div class="tl-line"></div></div><div class="tl-r opt"><div class="tl-title">Catch-Up Time</div><div class="tl-desc">Anything missed on earlier days, or just wander.</div></div></div><div class="tl-item"><div class="tl-l"><div class="tl-time">Evening</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Final Nicer Dinner</div><div class="tl-desc">Last night in London. Go somewhere good.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(8)">&larr; Day 8</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 9</div><div class="foot-sub">Flex day</div></div>
+    <button class="foot-btn" onclick="go(10)">Day 10 &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p10">
+  <div class="day-page">
+    <div class="d-hero hero-city">
+      <div class="hero-inner"></div>
+      <div class="d-hero-badge badge-city">London</div>
+      <div class="d-hero-date">May 14</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots10"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(9)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" onclick="go(11)">&rarr;</button>
+    </nav>
+    <div class="d-hdr">
+      <div class="d-hdr-script">Day ten</div>
+      <h2 class="d-hdr-title">Fly Home</h2>
+      <div class="d-hdr-date">Friday, May 14, 2027</div>
+    </div>
+    <div class="d-body">
+<div class="rbox"><div class="rbox-lbl">Heading home</div><div class="rbox-title" style="margin-bottom:0">Return flight details go here once flights are booked.</div></div><div class="sec-lbl">The Day&rsquo;s Plan</div><div class="tl-item"><div class="tl-l"><div class="tl-time">Morning</div><div class="tl-line"></div></div><div class="tl-r"><div class="tl-title">Check Out + Airport</div><div class="tl-desc">Leave plenty of time for the trip to Heathrow.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(9)">&larr; Day 9</button>
+    <div class="foot-mid"><div class="foot-lbl">Day 10</div><div class="foot-sub">Departure</div></div>
+    <button class="foot-btn" onclick="go(11)">Plan &rarr;</button>
+  </div>
+</div>
+
+<div class="pg" id="p11">
+  <div class="day-page">
+    <div class="bk-hero">
+      <h2 class="bk-h1">Plan &amp; Bookings</h2>
+      <div class="bk-sub">What to lock in, and when</div>
+    </div>
+    <nav class="d-nav">
+      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <div class="nav-dots" id="dots11"></div>
+      <button class="nav-arr" aria-label="Previous" onclick="go(10)">&larr;</button>
+      <button class="nav-arr" aria-label="Next" disabled>&rarr;</button>
+    </nav>
+    <div class="bk-body">
+<div class="bk-grp">Book first</div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Flights, Tampa to London</div><div class="bk-det">Red-eye in on May 5, home May 14. International fares are usually best 2&ndash;4 months out. Compare United miles against cash, and book flights and hotels separately.</div><div class="bk-act">Reminder set for Jan 5, 9am</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">London hotel</div><div class="bk-det">Book free cancellation. Zone 2 (Shoreditch, Hackney, Brixton) runs about &pound;60&ndash;100 a night and is 15&ndash;20 minutes from the center. Zone 1 runs about &pound;90&ndash;150.</div><div class="bk-act">After flights</div></div></div><div class="bk-grp">Book closer to the day</div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Stonehenge timed ticket</div><div class="bk-det">Bookable online up to three hours ahead and cheaper than the gate. Book the night before or that morning.</div><div class="bk-act">May 10&ndash;11</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Warner Bros. Studio Tour</div><div class="bk-det">Book ahead once the dates are firm.</div><div class="bk-act">When dates are firm</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Winery tour</div><div class="bk-det">Choose Denbies, Gusbourne or Nyetimber, then book. Nyetimber tours run on select dates.</div><div class="bk-act">After you pick</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Cotswolds transport</div><div class="bk-det">Chauffeured minibus from Euston or a rental car.</div><div class="bk-act">Decide</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Changing of the Guard</div><div class="bk-det">It doesn&rsquo;t run every day. Check the schedule a few weeks out.</div><div class="bk-act">A few weeks before</div></div></div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Peloton Studios London</div><div class="bk-det">Check the visiting-instructor schedule 4&ndash;6 weeks out for Cody. Otherwise book any studio class.</div><div class="bk-act">4&ndash;6 weeks before</div></div></div><div class="bk-grp">Rachel &amp; AJ</div><div class="bk-item"><div class="bk-icon todo">&#9675;</div><div><div class="bk-name">Southampton cruise, May 9 afternoon</div><div class="bk-det">Confirm the terminal and check-in window. Waterloo to Southampton Central is roughly 1.25&ndash;1.5 hours, then a short taxi. Decide whether you go along to the port.</div><div class="bk-act">Confirm</div></div></div><div class="bk-grp">Saved for another trip</div><div class="mustdo later"><div class="mi"><div><strong>Ireland.</strong> Dublin, the Cliffs of Moher, Galway and Ashford Castle, plus the Guinness Storehouse and Jameson Distillery Bow St. Pick up a car in Dublin and fly home from Shannon.</div></div><div class="mi"><div><strong>Scotland.</strong> Edinburgh paired with the Highlands, as its own trip.</div></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <button class="foot-btn" onclick="go(10)">&larr; Day 10</button>
+    <div class="foot-mid"><div class="foot-lbl">Plan</div><div class="foot-sub">Bookings</div></div>
+    <button class="foot-btn" disabled>&mdash;</button>
+  </div>
+</div>
+
+<script>
+var NAMES = ['cover','day-1','day-2','day-3','day-4','day-5','day-6','day-7','day-8','day-9','day-10','plan'];
+var LABELS = ['', 'May 5','May 6','May 7','May 8','May 9','May 10','May 11','May 12','May 13','May 14','Plan'];
+var cur = 0;
+
+function show(n) {
+  if (n < 0 || n >= NAMES.length) n = 0;
+  var old = document.getElementById('p' + cur);
+  if (old) old.classList.remove('on');
+  cur = n;
+  document.getElementById('p' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+
+function go(n) {
+  if (location.hash === '#' + NAMES[n]) { show(n); } else { location.hash = NAMES[n]; }
+}
+
+function fromHash() {
+  var h = (location.hash || '').replace('#', '');
+  var i = NAMES.indexOf(h);
+  return i;
+}
+
+function tripDay() {
+  var t = new Date();
+  var today = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  var start = new Date(2027, 4, 5);
+  var diff = Math.round((today - start) / 86400000);
+  return (diff >= 0 && diff <= 9) ? diff + 1 : -1;
+}
+
+function renderDots() {
+  for (var p = 1; p <= 11; p++) {
+    var el = document.getElementById('dots' + p);
+    if (!el) continue;
+    el.innerHTML = '';
+    for (var i = 1; i <= 11; i++) {
+      (function (i) {
+        var b = document.createElement('button');
+        b.className = 'dot' + (i === p ? ' on' : '');
+        b.title = LABELS[i];
+        b.setAttribute('aria-label', 'Go to ' + LABELS[i]);
+        b.onclick = function () { go(i); };
+        el.appendChild(b);
+      })(i);
+    }
+  }
+}
+
+window.addEventListener('hashchange', function () {
+  var i = fromHash();
+  show(i < 0 ? 0 : i);
+});
+
+renderDots();
+var start = fromHash();
+if (start < 0) { var d = tripDay(); start = d > 0 ? d : 0; }
+show(start);
+</script>
+
+</body>
+</html>
