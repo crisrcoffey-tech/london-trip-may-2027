@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>London Trip 2027</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ─── RESET & TOKENS ─────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -740,13 +740,81 @@ a.ext { color: var(--sf-h); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+/* ─── UK THEME ───────────────────────────────── */
+:root { --uj-red:#C8102E; --uj-blue:#012169; --tube:#DC241F; }
+body { font-family: 'Inter', sans-serif; }
+.cv-h1, .d-hdr-title, .bk-h1 { font-family: 'Playfair Display', serif; }
+.tl-time, .sec-lbl, .rbox-lbl, .d-hero-badge, .cv-pill, .cv-list-title, .bk-grp, .foot-lbl, .wcard-tag, .wm-item strong, .d-hdr-date, .pill, button.mi .md, .cv-dates {
+  font-family: 'Barlow Condensed', 'Inter', sans-serif; letter-spacing: .12em; }
+
+/* Union Jack cover */
+#p0-inner { background: #fff; }
+.cv-top {
+  position: relative; overflow: hidden; background-color: var(--uj-blue);
+  background-image:
+    linear-gradient(to bottom, transparent 42%, #fff 42%, #fff 58%, transparent 58%),
+    linear-gradient(to right, transparent 42%, #fff 42%, #fff 58%, transparent 58%),
+    linear-gradient(to bottom, transparent 46%, var(--uj-red) 46%, var(--uj-red) 54%, transparent 54%),
+    linear-gradient(to right, transparent 46%, var(--uj-red) 46%, var(--uj-red) 54%, transparent 54%),
+    linear-gradient(rgba(1,33,105,.9), rgba(1,33,105,.93));
+  background-size: 100% 100%; background-position: center;
+  padding-bottom: 92px;
+}
+.cv-top > * { position: relative; z-index: 2; }
+.cv-top::after { content:""; position:absolute; left:0; right:0; bottom:-1px; height:84px; z-index:1;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20520%2060%22%20preserveAspectRatio%3D%22xMinYMax%22%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%22.28%22%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22520%22%20height%3D%222%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2230%22%20width%3D%2214%22%20height%3D%2230%22/%3E%3Cpolygon%20points%3D%2220%2C30%2027%2C18%2034%2C30%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%2210%22%20height%3D%2238%22/%3E%3Cpolygon%20points%3D%2222%2C22%2027%2C6%2032%2C22%22/%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%2228%22%20r%3D%223%22%20fill%3D%22%23012169%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2238%22%20r%3D%2220%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Cline%20x1%3D%2290%22%20y1%3D%2238%22%20x2%3D%2290%22%20y2%3D%2258%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22150%22%20y%3D%2226%22%20width%3D%2212%22%20height%3D%2234%22/%3E%3Crect%20x%3D%22190%22%20y%3D%2226%22%20width%3D%2212%22%20height%3D%2234%22/%3E%3Crect%20x%3D%22162%22%20y%3D%2230%22%20width%3D%2228%22%20height%3D%223%22/%3E%3Cpath%20d%3D%22M150%2040%20Q176%2052%20202%2040%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Cpolygon%20points%3D%22250%2C60%20262%2C2%20274%2C60%22/%3E%3Cpath%20d%3D%22M310%2060%20V40%20a18%2018%200%200%201%2036%200%20V60Z%22/%3E%3Crect%20x%3D%22326%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%2212%22/%3E%3Cellipse%20cx%3D%22400%22%20cy%3D%2234%22%20rx%3D%229%22%20ry%3D%2222%22/%3E%3Crect%20x%3D%22391%22%20y%3D%2234%22%20width%3D%2218%22%20height%3D%2226%22/%3E%3Crect%20x%3D%22440%22%20y%3D%2236%22%20width%3D%2216%22%20height%3D%2224%22/%3E%3Crect%20x%3D%22460%22%20y%3D%2228%22%20width%3D%2214%22%20height%3D%2232%22/%3E%3Crect%20x%3D%22478%22%20y%3D%2240%22%20width%3D%2218%22%20height%3D%2220%22/%3E%3C/g%3E%3C/svg%3E") center bottom / min(100%, 520px) 100% repeat-x; }
+.cv-h1 { text-shadow: 0 2px 14px rgba(0,0,0,.35); }
+.cv-script { font-family: 'Dancing Script', cursive; font-size: 24px; color: #F3D98B; }
+.cv-pill { background: var(--uj-red); border: none; color: #fff; border-radius: 4px; padding: 6px 14px; }
+
+/* Tube roundel on cover */
+.roundel { width: 74px; height: 74px; margin: 0 auto 8px; display:block; filter: drop-shadow(0 3px 8px rgba(0,0,0,.35)); }
+
+/* bunting */
+.bunting { height: 26px; width: 100%; background:
+  url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20132%2026%22%3E%3Cpath%20d%3D%22M0%200H44L22%2026Z%22%20fill%3D%22%23C8102E%22/%3E%3Cpath%20d%3D%22M44%200H88L66%2026Z%22%20fill%3D%22%23FFFFFF%22/%3E%3Cpath%20d%3D%22M88%200H132L110%2026Z%22%20fill%3D%22%23012169%22/%3E%3C/svg%3E") repeat-x center top / 44px 26px; }
+
+/* day hero: skyline + red/blue stripe */
+.d-hero { position: relative; overflow: hidden; border-bottom: 4px solid var(--uj-red); }
+.d-hero::after { content:""; position:absolute; left:0; right:0; bottom:0; height:62px; z-index:1;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20520%2060%22%20preserveAspectRatio%3D%22xMinYMax%22%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%22.28%22%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22520%22%20height%3D%222%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2230%22%20width%3D%2214%22%20height%3D%2230%22/%3E%3Cpolygon%20points%3D%2220%2C30%2027%2C18%2034%2C30%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%2210%22%20height%3D%2238%22/%3E%3Cpolygon%20points%3D%2222%2C22%2027%2C6%2032%2C22%22/%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%2228%22%20r%3D%223%22%20fill%3D%22%23012169%22/%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2238%22%20r%3D%2220%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Cline%20x1%3D%2290%22%20y1%3D%2238%22%20x2%3D%2290%22%20y2%3D%2258%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Crect%20x%3D%22150%22%20y%3D%2226%22%20width%3D%2212%22%20height%3D%2234%22/%3E%3Crect%20x%3D%22190%22%20y%3D%2226%22%20width%3D%2212%22%20height%3D%2234%22/%3E%3Crect%20x%3D%22162%22%20y%3D%2230%22%20width%3D%2228%22%20height%3D%223%22/%3E%3Cpath%20d%3D%22M150%2040%20Q176%2052%20202%2040%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%222%22/%3E%3Cpolygon%20points%3D%22250%2C60%20262%2C2%20274%2C60%22/%3E%3Cpath%20d%3D%22M310%2060%20V40%20a18%2018%200%200%201%2036%200%20V60Z%22/%3E%3Crect%20x%3D%22326%22%20y%3D%2214%22%20width%3D%224%22%20height%3D%2212%22/%3E%3Cellipse%20cx%3D%22400%22%20cy%3D%2234%22%20rx%3D%229%22%20ry%3D%2222%22/%3E%3Crect%20x%3D%22391%22%20y%3D%2234%22%20width%3D%2218%22%20height%3D%2226%22/%3E%3Crect%20x%3D%22440%22%20y%3D%2236%22%20width%3D%2216%22%20height%3D%2224%22/%3E%3Crect%20x%3D%22460%22%20y%3D%2228%22%20width%3D%2214%22%20height%3D%2232%22/%3E%3Crect%20x%3D%22478%22%20y%3D%2240%22%20width%3D%2218%22%20height%3D%2220%22/%3E%3C/g%3E%3C/svg%3E") center bottom / min(100%, 520px) 100% repeat-x; }
+.d-hero-date { z-index: 3; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.d-hero-badge { border-radius: 3px; text-transform: uppercase; z-index: 3; background: var(--uj-red) !important; color:#fff; border-left: 4px solid var(--uj-blue); }
+
+/* Tube-line style header + timeline */
+.d-hdr { border-left: 6px solid var(--uj-red); border-radius: 6px; }
+.d-hdr-script { color: var(--uj-red); }
+.d-hdr-date { background: var(--uj-blue); color:#fff; display:inline-block; padding: 3px 10px; border-radius: 3px; margin-top: 6px; }
+.sec-lbl { color: var(--uj-blue); border-bottom: 2px solid var(--uj-red); display:flex; }
+.tl-time { color: var(--uj-red); }
+.tl-line { background: var(--uj-red) !important; width: 4px !important; border-radius: 2px; opacity:.85; }
+.tl-item .tl-l::before { content:""; display:block; width:12px; height:12px; border-radius:50%; background:#fff; border:3px solid var(--uj-blue); margin: 4px auto 0; }
+.rbox { background: #fff; border: 2px solid var(--uj-blue); border-left-width: 8px; border-radius: 6px; }
+.rbox-lbl { color: var(--uj-red); }
+.wcard { border-top: 4px solid var(--uj-red); }
+.foot-btn { border-radius: 4px; border: 2px solid var(--uj-blue); color: var(--uj-blue); }
+.cv-btn { background: var(--uj-red); border-radius: 4px; box-shadow: 0 4px 0 #8C0A20; }
+.cv-card { border: 3px solid #fff; box-shadow: 0 6px 16px rgba(1,33,105,.25); }
+.cv-grad.g-family { background: linear-gradient(160deg,#C8102E,#7E0A1D); }
+.cv-grad.g-country{ background: linear-gradient(160deg,#3F7D58,#1F4D35); }
+.cv-grad.g-plan   { background: linear-gradient(160deg,#1B3A8C,#012169); }
+.nav-dots .dot.on { background: var(--uj-red); }
+.bk-hero { background: var(--uj-blue); border-bottom: 4px solid var(--uj-red); }
+.bk-h1, .bk-sub { color:#fff; }
+.hero-city{background:linear-gradient(160deg,#1B3A8C,#012169);} .hero-family{background:linear-gradient(160deg,#C8102E,#7E0A1D);}
+.hero-country{background:linear-gradient(160deg,#4F8E68,#1F4D35);} .hero-port{background:linear-gradient(160deg,#2B6CB0,#0B3A6B);}
+.hero-wine{background:linear-gradient(160deg,#8E2236,#4D0F1E);} .hero-harry{background:linear-gradient(160deg,#4F4180,#2A1F52);}
+.mind { text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.2em; font-size:12px; color:#fff; background:var(--uj-blue); padding:6px; border-top:3px solid var(--uj-red); border-bottom:3px solid var(--uj-red); text-transform:uppercase; }
+
 </style>
 </head>
 <body>
 
 <div class="pg on" id="p0">
   <div id="p0-inner" style="background:#fff; min-height:100vh; flex-direction:column;">
+    <div class="bunting"></div>
     <div class="cv-top">
+      <svg class="roundel" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" fill="none" stroke="#C8102E" stroke-width="14"/><rect x="2" y="39" width="96" height="22" fill="#012169"/><text x="50" y="55" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="600" font-size="14" letter-spacing="1.5" fill="#fff">LONDON</text></svg>
       <div class="cv-script">Ten days &middot; May 2027</div>
       <h1 class="cv-h1">London</h1>
       <div class="cv-sub">&amp; the English countryside</div>
@@ -766,7 +834,8 @@ a.ext { color: var(--sf-h); }
         <div class="cv-card-lbl"><span class="cv-city">Plan</span><span class="cv-dates">Bookings</span></div>
       </div>
     </div>
-    <div class="cv-travelers">
+    <div class="mind">Mind the gap &middot; Cheerio &middot; Cheers, mate</div>
+    <div class="cv-travelers" style="margin-top:14px">
       <div class="cv-name">Cris</div><div class="cv-amp">&amp;</div><div class="cv-name">Caroline</div>
     </div>
     <div class="cv-note">With Rachel &amp; AJ, May 7&ndash;9</div>
