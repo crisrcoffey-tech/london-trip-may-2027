@@ -740,6 +740,7 @@ a.ext { color: var(--sf-h); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+
 /* ─── UK THEME ───────────────────────────────── */
 :root { --uj-red:#C8102E; --uj-blue:#012169; --tube:#DC241F; }
 body { font-family: 'Inter', sans-serif; }
@@ -806,6 +807,42 @@ body { font-family: 'Inter', sans-serif; }
 .hero-wine{background:linear-gradient(160deg,#8E2236,#4D0F1E);} .hero-harry{background:linear-gradient(160deg,#4F4180,#2A1F52);}
 .mind { text-align:center; font-family:'Barlow Condensed',sans-serif; letter-spacing:.2em; font-size:12px; color:#fff; background:var(--uj-blue); padding:6px; border-top:3px solid var(--uj-red); border-bottom:3px solid var(--uj-red); text-transform:uppercase; }
 
+
+/* ─── COVER + NAV FIXES ─── */
+#p0-inner { max-width: 760px; margin: 0 auto; width: 100%; display: flex; }
+.cv-top { background: var(--uj-blue) !important; background-image: none !important; border-bottom: 6px solid var(--uj-red); box-shadow: 0 6px 0 #fff, 0 7px 0 var(--divider); padding-bottom: 90px; }
+.cv-top::after { height: 76px; }
+.cv-h1 { font-size: clamp(44px, 14vw, 72px); }
+.cv-script, .cv-sub { max-width: 100%; }
+.mind { order: 1; margin-top: 14px; }
+.cv-travelers { order: 2; margin-top: 16px !important; flex-wrap: wrap; }
+.cv-note { order: 3; }
+.cv-cta { order: 4; padding-top: 12px; }
+.cv-list { order: 5; width: 100%; box-sizing: border-box; padding-top: 14px; }
+.cv-photos { order: 6; display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; box-sizing: border-box; width: 100%; padding-bottom: 36px; }
+.cv-card { height: 88px !important; aspect-ratio: auto !important; width: auto !important; min-width: 0; position: relative; overflow: hidden; border-radius: 12px; }
+.cv-card-lbl { left: 8px; right: 8px; bottom: 8px; text-align: left; }
+.cv-city { display: block; font-size: 14px; line-height: 1.15; }
+.cv-dates { display: block; font-size: 10px; letter-spacing: .04em; white-space: nowrap; }
+.cv-btn { width: calc(100% - 4px); max-width: 360px; white-space: normal; font-size: 14px; letter-spacing: .08em; padding: 14px 16px; }
+.cv-list .mustdo { max-width: 100%; }
+button.mi { padding: 12px 4px; gap: 10px; }
+button.mi strong { min-width: 0; overflow-wrap: anywhere; font-size: 15px; }
+button.mi .md { min-width: 64px; }
+
+/* day-page nav: roomy, no overflow */
+.d-nav { gap: 8px; }
+.nav-home { white-space: nowrap; font-size: 14px; letter-spacing: .02em; flex-shrink: 0; }
+.nav-dots { min-width: 0; overflow: hidden; flex: 1 1 auto; justify-content: center; }
+@media (max-width: 520px) { .nav-dots { display: none; } .nav-home { margin-right: auto; } }
+.foot { gap: 8px; }
+.foot-btn { white-space: nowrap; font-size: 13px; letter-spacing: .02em; padding: 10px 12px; flex-shrink: 0; min-width: 0; }
+.foot-mid { min-width: 0; text-align: center; overflow: hidden; }
+.foot-lbl, .foot-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.foot-lbl { font-size: 15px; letter-spacing: .06em; }
+.tl-time { white-space: normal; max-width: 60px; font-size: 12px; letter-spacing: .06em; line-height: 1.15; text-align: center; }
+.pill { white-space: nowrap; }
+
 </style>
 </head>
 <body>
@@ -855,7 +892,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 5</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots1"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(0)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(2)">&rarr;</button>
@@ -884,7 +921,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 6</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots2"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(1)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(3)">&rarr;</button>
@@ -913,7 +950,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 7</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots3"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(2)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(4)">&rarr;</button>
@@ -942,7 +979,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 8</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots4"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(3)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(5)">&rarr;</button>
@@ -971,7 +1008,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 9</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots5"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(4)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(6)">&rarr;</button>
@@ -1000,7 +1037,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 10</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots6"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(5)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(7)">&rarr;</button>
@@ -1029,7 +1066,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 11</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots7"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(6)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(8)">&rarr;</button>
@@ -1058,7 +1095,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 12</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots8"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(7)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(9)">&rarr;</button>
@@ -1087,7 +1124,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 13</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots9"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(8)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(10)">&rarr;</button>
@@ -1116,7 +1153,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="d-hero-date">May 14</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots10"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(9)">&larr;</button>
       <button class="nav-arr" aria-label="Next" onclick="go(11)">&rarr;</button>
@@ -1144,7 +1181,7 @@ body { font-family: 'Inter', sans-serif; }
       <div class="bk-sub">What to lock in, and when</div>
     </div>
     <nav class="d-nav">
-      <button class="nav-home" onclick="go(0)">London &middot; 2027</button>
+      <button class="nav-home" onclick="go(0)">&#9776; All days</button>
       <div class="nav-dots" id="dots11"></div>
       <button class="nav-arr" aria-label="Previous" onclick="go(10)">&larr;</button>
       <button class="nav-arr" aria-label="Next" disabled>&rarr;</button>
